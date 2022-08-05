@@ -1,10 +1,22 @@
 const express = require('express');
 const abc = require('../introduction/intro')
+const logg=require('../logger/logger')
+const show=require('../validator/formatter')
+const dates=require('../util/helper')
 const router = express.Router();
 
 router.get('/test-me', function (req, res) {
     console.log('My batch is', abc.name)
     abc.printName()
+    logg.name1
+    logg.func1
+    show.trim1
+    show.lower1
+    show.upcase1
+    dates.print1
+    dates.month
+    dates.BatchInfo1
+    
     res.send('My second ever api!')
 });
 
