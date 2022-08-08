@@ -7,7 +7,15 @@ const dates=require('../util/helper')
 const router = express.Router();
 
 router.get('/test-me', function (req, res) {
-    
+    abc.printName
+    logg.func1
+    show.trim1
+    show.lower1
+    show.upcase1
+    dates.print1
+    dates.BatchInfo1
+    dates.month
+
     let month=["jan","feb","mar","apr","may","jun","jul","aug","sept","oct","nov","dec"]
     console.log(lodash.chunk(month,3))
      let arr=[1,3,5,7,9,11,13,15,17,19]
