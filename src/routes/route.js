@@ -36,6 +36,28 @@ router.get('/test-me', function (req, res) {
 router.get('/test-you', function(req, res){
     res.send('This is the second routes implementation')
 })
+router.get('/movies', function(req, res){
+    let mov=["don","kabir","kashmir files"]
+    res.send(mov)
+})
+// router.get('/movies/:indexNumber', function(req, res){
+//     res.send('This is the second routes implementation')
+// })
+router.get('/films', function(req, res){
+    let obj=[{"id":1 , "name":"don"},
+{"id":2,"name":"the kashmir files"},
+{"id":3,"name":"harry potter"}]
+res.send(obj)
+})
+
+router.get('/movies/:indexNumber',function(req,res){
+    let films=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    let Rparam=req.params.indexNumber
+    console.log(films[Rparam])
+    res.send(films[Rparam])
+    res.send(Rparam[indexNumber])
+})
+
 
 router.get('/give-me-students-data',function(req, res){
 
