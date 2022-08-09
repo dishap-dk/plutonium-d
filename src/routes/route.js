@@ -52,10 +52,19 @@ res.send(obj)
 
 router.get('/movies/:indexNumber',function(req,res){
     let films=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
-    let Rparam=req.params.indexNumber
-    console.log(films[Rparam])
-    res.send(films[Rparam])
-    res.send(Rparam[indexNumber])
+    let para=req.params.indexNumber;
+    console.log(films[para])
+    res.send(films[para])
+    
+
+})
+router.get('/movies/:indexNumber',function(req,res){
+    let movies=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    let index=req.params.indexNumber;
+
+    if(index>movies.length){
+    return res.send("error input valid number")
+}
 })
 
 
