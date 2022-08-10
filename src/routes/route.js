@@ -36,13 +36,12 @@ router.get('/test-me', function (req, res) {
 router.get('/test-you', function(req, res){
     res.send('This is the second routes implementation')
 })
+// 1 st program
 router.get('/movies', function(req, res){
     let mov=["don","kabir","kashmir files"]
     res.send(mov)
 })
-// router.get('/movies/:indexNumber', function(req, res){
-//     res.send('This is the second routes implementation')
-// })
+//  second program
 router.get('/films', function(req, res){
     let obj=[{"id":1 , "name":"don"},
 {"id":2,"name":"the kashmir files"},
@@ -50,6 +49,7 @@ router.get('/films', function(req, res){
 res.send(obj)
 })
 
+// third program
 router.get('/movies/:indexNumber',function(req,res){
     let films=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
     let para=req.params.indexNumber;
@@ -58,19 +58,69 @@ router.get('/movies/:indexNumber',function(req,res){
     
 
 })
+
+// fourth program
 router.get('/movies/:indexNumber',function(req,res){
     let movies=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
     let index=req.params.indexNumber;
-
+    console.log("hii",index)
     if(index>movies.length){
     return res.send("error input valid number")
 }
 })
 
-
-router.get('/give-me-students-data',function(req, res){
-
+// 5th program
+router.get("/films/:filmId",function(req,res){
+    let newMovie=[{"id":1 , "name":"don"},
+    {"id":2,"name":"the kashmir files"},
+    {"id":3,"name":"harry potter"}]
+   
+    let indexNO = req.params.filmId;
+    if(indexNO>newMovie.length){
+         res.send("invalid")
+        
+    }else{
+        res.send(newMovie[indexNO])
+    
+    }
 })
+// router.get("/films/:filmId", function (req, res) {
+//     let newMovie = [{ "id": 1, "name": "don" },
+//     { "id": 2, "name": "the kashmir files" },
+//     { "id": 3, "name": "harry potter" }]
+
+//     let indexNO = req.params.filmId;
+//     if ((indexNO > newMovie.length) || (indexNO == 0)) {
+//         res.send("invalid")
+
+//     } else if (indexNO < newMovie.length) {
+//         res.send(newMovie[indexNO - 1])
+//     }
+// })
+// router.get('/give-me-students-data',function(req, res){
+
+// })
+router.get("/pr1", function(req, res){
+    let a=[1,2,3,5,6,7];
+    let total = (a.length+1)*(a.length+2)/2;
+    for(i=0;i<a.length;i++){
+        total=total-a[i]
+    }
+    console.log(total)
+    res.send(total)
+    
+    })
+    router.get("/pr1", function(req, res){
+        let b =[33, 34, 35, 37, 38]
+        let sum = (b.length+1)*(33+38)/2;
+        for(i=0;i<b.length;i++){
+            sum=sum-b[i]
+        }
+        console.log(sum)
+        res.send(sum)
+    })
+
+
 module.exports = router;
 
 // adding this comment for no reason
