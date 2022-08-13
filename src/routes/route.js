@@ -28,7 +28,7 @@ router.get("/test-yes",function(req,res){
    let len= arr.length
  
    let total = 0;
-   for (var i in arr) {
+   for (let i=0;i<len;i++){
        total += arr[i];
    }
  
@@ -40,17 +40,60 @@ router.get("/test-yes",function(req,res){
    res.send(  { data: missingNumber  }  );
  });
 
- router.post("/test-post",function(req,res){
-let boddy=req.body
- res.send(boddy)
- })
+ 
 
- router.post("/disha",function(req,res){
 
-let view=req.body
-  console.log(view)
-  res.send(view)
-     })
+ let players =[
+{
+  "name":"manish",
+  "dob":"1/1/1995",
+  "gender":"male",
+  "city":"jalandar",
+  "sports":["swimming"],
+},
+{
+  "name":"gopal",
+  "dob":"1/09/1995",
+  "gender":"male",
+  "city":"delhi",
+  "sports":["soccer"],
+},
+{
+  "name":"lokesh",
+  "dob":"1/1/1990",
+  "gender":"male",
+  "city":"mumbai",
+  "sports":["soccer"]
+}
+]
+router.post("/players",function(req,res){
+
+  let newplayer=req.body;
+  let newPlayerName=newplayer.name;
+  let oneflag=false;
+
+  for(let i=0;i<players.length;i++){
+    if(players[i].name==newPlayerName){
+      oneflag=true;
+     break 
+    }
+  }
+
+if(oneflag){
+  res.send("player already exist")
+}else{
+players.push(newplayer)
+res.send(players)
+
+}
+})
+
+
+
+
+
+     
+
  
 
 
