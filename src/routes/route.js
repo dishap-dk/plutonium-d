@@ -9,29 +9,13 @@ router.post('/createUser', MyUserController.CreateUser);
 
 router.post('/login', MyUserController.login)
 
-
 router.get('/user/:userId',auth.authentication, MyUserController.user)
-
 
 router.delete('/user/:userId',auth.authentication, MyUserController.userDelete)
 
-
-
-router.put('/update/:userId',auth.authentication, MyUserController.updateData)
+router.put('/update/:userId',auth.authentication, auth.authorization,MyUserController.updateData)
 
 router.post('/post/:userId/post',auth.authentication,auth.authorization,MyUserController.postData)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
