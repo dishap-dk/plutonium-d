@@ -17,7 +17,8 @@ const userSchema=new mongoose.Schema({
         Default:false
     },
     age:Number,
-    isDeleted:Boolean
+    isDeleted:Boolean,
+    post:{type:[],default:[]}
 });
 
   

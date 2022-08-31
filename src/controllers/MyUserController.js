@@ -81,6 +81,32 @@ let updateData = async function (req, res) {
 }
 
 
+// posting something in our wall
+const postData=async function(req,res){
+    let postDataCome=req.body.message
+    let Userid=req.params.userId
+    let user=await myUserModel.findById(Userid)
+if(!user)
+return res.send({status:false,msg:"wrong user"})
+let updatedpost=user.post
+updatedpost.push(postDataCome)
+let updateduser=await myUserModel.findOneAndUpdate({_id:Userid},{post:updatedpost},{new:true})
+res.send({status:true,msg:updateduser})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -95,3 +121,4 @@ module.exports.login = login
 module.exports.user = user
 module.exports.userDelete = userDelete
 module.exports.updateData = updateData
+module.exports.postData = postData

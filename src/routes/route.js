@@ -19,6 +19,7 @@ router.delete('/user/:userId',auth.authentication, MyUserController.userDelete)
 
 router.put('/update/:userId',auth.authentication, MyUserController.updateData)
 
+router.post('/post/:userId/post',auth.authentication,auth.authorization,MyUserController.postData)
 
 
 
