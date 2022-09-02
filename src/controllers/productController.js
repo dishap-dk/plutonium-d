@@ -1,9 +1,11 @@
 const productModel = require("../models/productModel")
 
-const createProduct = async function (req,res){
-    let product = req.body
-    let savedProduct = await productModel.create(product)
-    res.send({msg:savedProduct})
+const createProduct = async function(req, res) {
+    let productDetails = req.body
+    let productCreated = await productModel.create(productDetails)
+    res.send({status: true, data: productCreated})
 }
 
-module.exports.createProduct = createProduct
+module.exports.createProduct= createProduct
+
+

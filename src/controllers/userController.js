@@ -1,17 +1,13 @@
+const req = require("express/lib/request")
 const userModel = require("../models/userModel")
 
 
-const createUser = async function(req,res){
-    req.body["isFreeAppUser"] = req.isFreeAppUser
-    let user = req.body
-    let savedUser = await userModel.create(user)
-    res.send({msg:savedUser})
-}
-
-const getUsersData = async function (req, res) {
-    let allUsers = await userModel.find()
-    res.send({ msg: allUsers })
+const createUser = async function(req, res) {
+    let userDetails = req.body
+    userDetails.isFreeAppUser = req.appTypeFree
+    
+    let userCreated = await userModel.create(userDetails)
+    res.send({status: true, data: userCreated})
 }
 
 module.exports.createUser = createUser
-module.exports.getUsersData = getUsersData

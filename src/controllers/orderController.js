@@ -1,41 +1,41 @@
-const orderModel = require('../models/orderModel')
-const productModel = require('../models/productModel')
-const userModel = require('../models/userModel')
-const moment = require('moment')
+const orderModel = require("../models/orderModel")
+const productModel = require("../models/productModel")
+const userModel = require("../models/userModel")
 
-const createOrder = async function(req,res){
-    req.body["isFreeAppUser"] = req.isFreeAppUser;
+const createOrder = async function(req, res) {
+    let orderDetails = req.body
+    let userId = orderDetails.userId
 
-    let data = req.body
-    if (!(data.userId && data.productId)){
-        return res.send({msg:"PLEASE ENTER userId and productId"})
-    }
-    let user = await userModel.findById(data.userId)
-    let product = await productModel.findById(data.productId)
-    if (!(user && product)){
-        return res.send({msg:"userId or productId is not valid.PLEASE enter valid id`s"})
+    let user = await userModel.findById(userId)
+    if(!user) {
+        return res.send({status: false, message: "user doesnt exist"})
     }
 
-    const date = moment().format('DD/MM/YYYY');
-    data['date'] = date
-
-    let amount = 0;
-    if (data['isFreeAppUser'] === "true"){
-        amount = 0
-    }else{
-        amount = product.price
+    let productId = orderDetails.productId
+    let product = await productModel.findById(productId)
+    if(!product) {
+        return res.send({status: false, message: "product doesnt exist"})
     }
     
-    if(user.balance<amount){
-        return res.send ({msg:"User has insufficient balance"})
-    }else{
-        updatedBalance = await userModel.findById(data.userId).updateOne({$inc:{balance:-amount}})
-    }
+    // Paid app and user balance is greater than or equal to product price
+    if(!req.appTypeFree && user.balance >= product.price) {
+        user.balance = user.balance - product.price
+        await user.save()
 
-    data['amount'] = amount
-    const savedOrder = await orderModel.create(data)
-    res.send({msg:savedOrder})
+        orderDetails.amount = product.price
+        orderDetails.isFreeAppUser = false
+        let orderCreated = await orderModel.create(orderDetails)
+        return res.send({status: true, data :orderCreated})
+    } else if(!req.appTypeFree) {
+    //: Paid app and user balance is less than product price
+        return res.send({status: false, message:"User deosnt have sufficient balance"})
+    } else {
+    //: Free app
+        orderDetails.amount = 0
+        orderDetails.isFreeAppUser = true
+        let orderCreated = await orderModel.create(orderDetails)
+        res.send({status: true, data: orderCreated})
+    }
 }
 
-
-module.exports.createOrder=createOrder
+module.exports.createOrder= createOrder
